@@ -113,7 +113,7 @@ public class CommitterImpl extends Channel implements Committer, AutoCloseable {
       ListConsumerGroupOffsetsResult response =
           admin()
               .listConsumerGroupOffsets(
-                  groupId, new ListConsumerGroupOffsetsOptions().requireStable(true));
+                  groupId, new ListConsumerGroupOffsetsOptions());
       return response.partitionsToOffsetAndMetadata().get().entrySet().stream()
           .filter(entry -> context.assignment().contains(entry.getKey()))
           .collect(toMap(Map.Entry::getKey, entry -> entry.getValue().offset()));
